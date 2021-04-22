@@ -1,0 +1,217 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Document</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+     <style>
+           .container{
+             
+             width: 400px;
+             height: 300px;
+             background-color: skyblue;
+             border-radius: 20px;
+             margin: 6% auto;
+         }
+         .input {
+             width: 100%;
+             height: 40px;
+             background-color: rgb(218, 231, 231);
+         }
+         input {
+             width: 80%;
+             height: 40px;
+             outline: none;
+             border: 1px solid rgb(218, 185, 185);
+             padding: 20px;
+             border-radius: 7px;
+            
+         }
+            button{
+             
+           
+             padding: 10px 16px;
+             cursor: pointer;
+             border-radius: 7px ;outline: none;
+             border: 2px solid white;
+             transition:all .4s ease-in
+            
+            
+            
+         }
+         button:hover {
+            color: white;
+            background-color: rgb(90, 148, 170);
+         }
+         ::placeholder {
+             text-align: center;
+         }
+    
+         span {
+            padding: 10px 14px;
+            float: left;
+            color: white;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+             
+         }
+         h4 {
+                         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+              color: white;
+             float: right;
+             padding: 10px 94px;
+             
+         }
+         .rslt {
+             position: absolute;
+             margin-top: 90px;
+             margin-left: 50px;
+         }
+         p{
+             color: aliceblue;
+         }
+         .f1 {
+             color: rgb(237, 241, 243);
+            font-size: 80px;
+         }
+          .f2 {
+             color: rgb(208, 228, 30);
+            font-size: 80px;
+         }
+          .f3 {
+             color: rgb(237, 241, 243);
+            font-size: 80px;
+         }
+         
+     </style>
+ </head>
+ <body>
+     {{>header}}
+
+        <div class="container">
+            <div class="input">
+                <input type="text" id="input" placeholder="country name">
+                <button id="sub">submit</button>
+            </div>
+
+            <div class="result">
+                <span id="spp"> </span> 
+                <h4 id="ddd">33|3|5</h4>
+                
+                 <div class="rslt">
+                     <p id="wrng">input type here</p> <br>
+                       <h6 id="h6">sss </h6>
+                       <h3 id="h3"> sacdcssc</h3>
+                 </div>
+                 
+            </div>
+        </div>
+ 
+
+     <script>
+         const input = document.getElementById("input")
+         const submit =  document.getElementById("sub")
+         const wrng  = document.getElementById("wrng")
+         const h6 = document.getElementById("h6")
+      const h3 = document.getElementById("h3")
+      
+            submit.addEventListener("click", async () => {
+               
+               h6.innerHTML = "";
+               h3.innerHTML ="";
+
+                const inpVal = input.value;
+                if (inpVal == "") {
+                    wrng.innerHTML = "please country name input " 
+                }
+                else {
+                   
+                            try {
+                             const url =  `http://api.openweathermap.org/data/2.5/weather?q=${inpVal}&appid=23f035d1a975c7a7ed627b54b6f9f940`
+                             const res = await fetch(url);
+                             const apioj = await  res.json();
+
+                             const chkmain = apioj.weather[0].main
+                              
+                             
+                             h6.innerHTML = `${apioj.main.temp} `;
+
+                             if (chkmain == "Clear") {
+                                  
+                             }
+                             else if (chkmain == "Clouds") {
+                                  h3.innerHTML   =
+                                `<i class="f1 fa fa-cloud"></i>`
+                                
+                             }
+                             else if (chkmain == "Haze") {
+                                h3.innerHTML   =
+                                `<i class="f2 fa fa-cloud"></i>`
+                                
+                             }
+                             else {
+                                 console.log("ha vai sssssss")
+                             }
+                             
+                            
+                            
+                              
+                           
+                            }
+                            catch {
+                                  wrng.innerHTML = "please country name correct input "
+               
+                            }
+          
+                         
+                   
+                    
+                } 
+                        
+                        
+
+                  
+             
+               
+                })
+
+
+const sp = document.getElementById("spp")
+const p = document.getElementById("ddd")
+ 
+        let now = new Date()
+            let date =  now.getDate();
+            sp.innerHTML  = date;
+
+
+               const crntday = () => {
+            const yearName =  new Array(7)
+              yearName[0] = "sun"
+              yearName[1] =   "Mon"
+              yearName[2] = "Tues"
+              yearName[3] =  "Wed"
+              yearName[4] = "Thurs"
+              yearName[5] =   "Fri"
+              yearName[6] =  "Satur"
+            
+            let day = new Date();
+            let da = yearName[day.getDay()]
+             return da;
+               
+        }
+         p.innerHTML =  crntday() 
+       
+
+         
+     </script>
+
+ </body>
+ </html>
+
+
+
+ 
